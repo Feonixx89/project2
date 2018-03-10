@@ -17,15 +17,16 @@
                             </thead>
 
                             <tbody>
+                            @foreach( $tasks as $task )
                             <tr>
-                                <td>1</td>
-                                <td>My title</td>
+                                <td>{{ $task->id }}</td>
+                                <td>{{ $task->title }}</td>
                                 <td>
                                     <a href="#">
                                         <i class="glyphicon glyphicon-eye-open"></i>
                                     </a>
 
-                                    <a href="#">
+                                    <a href="{{ route('tasks.edit', $task->id) }}">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </a>
 
@@ -35,6 +36,7 @@
 
                                 </td>
                             </tr>
+                            @endforeach
                             </tbody>
 
                         </table>

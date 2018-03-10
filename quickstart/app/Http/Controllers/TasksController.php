@@ -12,7 +12,9 @@ class TasksController extends Controller
 
     public function index()
     {
-        return view('tasks.index');
+        $tasks = Task::all();
+
+        return view('tasks.index', ['tasks'=>$tasks]);
     }
 
     public function create()
@@ -30,10 +32,24 @@ class TasksController extends Controller
         return redirect()->route('tasks.index');
     }
 
-        public function edit($id)
+    public function edit($id)
     {
         $myTask = Task::find($id);
         return view('tasks.edit', ['task' => $myTask]);
     }
 
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+            ]);
+
+        $myTask = Task::find($id);
+
+        $myTask->fill($request->all());
+        $myTask->save();
+
+        return redirect()->route('tasks.index');
+    }
 }
