@@ -19,6 +19,13 @@
                             <tbody>
                             @foreach( $tasks as $task )
                             <tr>
+                                <td>
+                                    {{ Form::open() }}
+                                        <input type="checkbox" name="item" id="item_{{ $task->id }}" {{ $task->done ? 'checked' : '' }}
+                                               onclick="this.form.submit()">
+                                        <input type="hidden" name="item_id" value="{{ $task->id }}">
+                                    {{ Form::close() }}
+                                </td>
                                 <td>{{ $task->id }}</td>
                                 <td>{{ $task->title }}</td>
                                 <td>
