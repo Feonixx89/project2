@@ -4,9 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Task;
+use Illuminate\Foundation\Validation\ValidatesRequests;
 
 class TasksController extends Controller
 {
+    use ValidatesRequests;
+
     public function index()
     {
         return view('tasks.index');
@@ -19,11 +22,11 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-        $task = new Task;
-        $task->title = $request->get('title');
-        $task->description = $request->get('description');
-
-        $task->save();
+        $this->validate($request, [
+            'title' => 'required',
+            'description' => 'required'
+        ]);
+        Task::create($request->all());
 
         return redirect()->route('tasks.index');
     }
