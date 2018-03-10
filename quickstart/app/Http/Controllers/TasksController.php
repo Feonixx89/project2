@@ -22,14 +22,18 @@ class TasksController extends Controller
 
     public function store(Request $request)
     {
-
         $this->validate($request, [
         'title' => 'required',
         'description' => 'required'
         ]);
-
         Task::create($request->all());
-
         return redirect()->route('tasks.index');
     }
+
+        public function edit($id)
+    {
+        $myTask = Task::find($id);
+        return view('tasks.edit', ['task' => $myTask]);
+    }
+
 }
