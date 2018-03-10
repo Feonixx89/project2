@@ -52,4 +52,10 @@ class TasksController extends Controller
 
         return redirect()->route('tasks.index');
     }
+
+    public function show($id)
+    {
+    $myTask = Task::find($id);
+    return view('tasks.show', ['task'=>$myTask]);
+    }
 }

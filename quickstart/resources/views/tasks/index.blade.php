@@ -22,7 +22,7 @@
                                 <td>{{ $task->id }}</td>
                                 <td>{{ $task->title }}</td>
                                 <td>
-                                    <a href="#">
+                                    <a href="{{ route('tasks.show', $task->id) }}">
                                         <i class="glyphicon glyphicon-eye-open"></i>
                                     </a>
 
