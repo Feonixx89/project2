@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Task;
 use Illuminate\Foundation\Validation\ValidatesRequests;
+use Illuminate\Support\Facades\Input;
 
 class TasksController extends Controller
 {
@@ -57,5 +58,16 @@ class TasksController extends Controller
     {
     $myTask = Task::find($id);
     return view('tasks.show', ['task'=>$myTask]);
+    }
+
+    public function postIndex()
+    {
+        $itemId = Input::get('item_id');
+        $item = Task::findOrFail($itemId);
+        if($item) {
+            $item->mark();
+        }
+
+        return redirect()->route('tasks.index');
     }
 }
